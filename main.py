@@ -1,4 +1,4 @@
-from notes_app.controller import controller
+from controller import controller
 
 if __name__ == '__main__':
-    controller()
+    controller()  # вызов функции controller

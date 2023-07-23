@@ -1,21 +1,28 @@
 from abc import ABC, abstractmethod
-# from models.notes import Notes
 
 
-# Абстрактный класс для команд
+# Специальный модуль для поддержки Абстрактных базовых классов
+# ABC - Абстрактный базовый класс - используется для определения интерфейса,
+# необходимого для реализации классам-потомкам.
+
 class Command(ABC):
+    """Абстрактный класс для команд"""
 
     @abstractmethod
     def execute(self):
+        """Абстрактный метод для выполнения команды"""
         pass
 
 
-# Конкретная команда для удаления заметки
 class DeleteNoteCommand(Command):
+    """Конкретная команда для удаления заметки"""
 
     def __init__(self, notes, id):
-        self.notes = notes
-        self.id = id
+        """Конструктор класса DeleteNoteCommand"""
+        self.notes = notes  # Объект класса Notes, с которым команда работает.
+        self.id = id  # Идентификатор заметки.
 
     def execute(self):
-        self.notes.delete(self.id)
+        """Метод выполнения команды"""
+        self.notes.delete(self.id)  # Вызываем метод delete объекта класса Notes,
+        # передаем ему идентификатор заметки для удаления.
