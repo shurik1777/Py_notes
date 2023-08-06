@@ -36,4 +36,3 @@ class Note:
                                                                                    '%Y-%m-%d %H:%M:%S'),
                                                                                self.modified.strftime(
                                                                                    '%Y-%m-%d %H:%M:%S'))
-

@@ -1,5 +1,6 @@
 import Py_notes.text as tf
 
+
 def view_notes(notes):
     all_notes = notes.read()  # Получаем список всех заметок из экземпляра класса Notes.
     if all_notes:

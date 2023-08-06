@@ -36,17 +36,29 @@ class Notes:
             raise Exception(tf.exception_in)  # Возбуждает исключение в случае повторного создания экземпляра класса.
         else:
             Notes._instance = self
-            self.notes = []
+            self.notes = []  # Список заметок.
 
-    # Метод для создания заметок
     def create(self, id, title, text):
+        """
+        Метод для создания заметки.
+
+        Parameters:
+            id (str): Идентификатор заметки.
+            title (str): Заголовок заметки.
+            text (str): Текст заметки.
+        """
         note = NoteFactory.create(id, title, text)
         self.notes.append(note)
         self.save_to_file()  # Сохраняет списки заметок в файл.
         print(tf.create_note, note)
 
-    # Метод для удаления заметок
     def delete(self, id):
+        """
+        Метод для удаления заметки по идентификатору.
+
+        Parameters:
+            id (str): Идентификатор заметки, которую нужно удалить.
+        """
         note = self.get_note_by_id(id)
         if note:
             self.notes.remove(note)
@@ -55,8 +67,15 @@ class Notes:
         else:
             print(tf.note_find, id)
 
-    # Метод для редактирования заметок
     def edit(self, id, title=None, text=None):
+        """
+        Метод для редактирования заметки по идентификатору.
+
+        Parameters:
+            id (str): Идентификатор заметки, которую нужно отредактировать.
+            title (str, optional): Новый заголовок заметки (если передан).
+            text (str, optional): Новый текст заметки (если передан).
+        """
         note = self.get_note_by_id(id)
         if note:
             if title:
@@ -69,11 +88,18 @@ class Notes:
         else:
             print(tf.note_find, id)
 
-    # Метод для чтения заметок
     def read(self, filter_date=None):
+        """
+        Метод для чтения заметок.
+
+        Parameters:
+            filter_date (datetime, optional): Дата для фильтрации заметок по дате создания или изменения.
+
+        Returns:
+            list: Список заметок.
+        """
         if not self.notes:
-            # print(tf.empty_list)
-            return []
+            return []  # Возвращаем пустой список, если заметок нет.
         if filter_date:
             # Фильтрация списка заметок по дате создания или изменения.
             filtered_notes = [note for note in self.notes if
@@ -85,13 +111,24 @@ class Notes:
         return self.notes
 
     def get_note_by_id(self, id):
+        """
+        Метод для получения заметки по идентификатору.
+
+        Parameters:
+            id (str): Идентификатор заметки.
+
+        Returns:
+            Note or None: Возвращает объект заметки, если найдена, иначе возвращает None.
+        """
         for note in self.notes:
             if note.id == id:
                 return note
         return None
 
-    # Метод для сохранения заметок в файл
     def save_to_file(self):
+        """
+        Метод для сохранения заметок в файл.
+        """
         notes = [note.to_dict() for note in self.notes]
         file_ext = os.getenv('file_ext', 'json')
         # Сохранение заметок в файлы формата JSON, CSV, или и обоих форматов.
@@ -115,8 +152,16 @@ class Notes:
         else:
             raise ValueError(f"Неподдерживаемый формат файла: {file_ext}")
 
-    # Метод для загрузки заметок из файла
     def load_from_file(self, file_name):
+        """
+        Метод для загрузки заметок из файла.
+
+        Parameters:
+            file_name (str): Имя файла, из которого нужно загрузить заметки.
+
+        Returns:
+            list: Список загруженных заметок.
+        """
         notes = []
         file_ext = os.path.splitext(file_name)[1]
         if file_ext == ".csv":
@@ -147,4 +192,4 @@ class Notes:
             raise ValueError(f"Неподдерживаемый формат файла: {file_ext}")
 
         self.notes = notes
-        return notes # Возвращаем список загруженных заметок
+        return notes  # Возвращаем список загруженных заметок
