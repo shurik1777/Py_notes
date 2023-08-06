@@ -1,4 +1,5 @@
 import os
+
 import Py_notes.text as tf  # Импортируем модуль text.py и задаем для него псевдоним tf.
 from Py_notes.commands.open_notes import open_notes  # Импортируем функцию open_notes из модуля commands.open_files.
 from Py_notes.view.view import view_notes
@@ -13,13 +14,17 @@ from commands.open_list_files import list_files  # Импортируем фун
 
 
 def print_menu():
-    # Функция выводит на экран текст меню, используя текст из модуля text.py.
+    """Функция выводит на экран текст меню, используя текст из модуля text.py."""
     print(*tf.menu, sep='')
 
 
 def controller():
-    # Функция управления приложением.
-    notes = Notes.get_instance()
+    """
+    Функция управления приложением.
+
+    Эта функция запускает главный цикл приложения, в котором происходит взаимодействие с пользователем.
+    """
+    notes = Notes.get_instance()  # Получаем экземпляр класса Notes
 
     while True:
         print_menu()

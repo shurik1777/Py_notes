@@ -130,24 +130,32 @@ class Notes:
         Метод для сохранения заметок в файл.
         """
         notes = [note.to_dict() for note in self.notes]
+        unique_ids = set()  # Множество для хранения уникальных идентификаторов заметок
+        unique_notes = []  # Список для хранения заметок с уникальными идентификаторами
+
+        for note in notes:
+            if note['id'] not in unique_ids:
+                unique_ids.add(note['id'])
+                unique_notes.append(note)
+
         file_ext = os.getenv('file_ext', 'json')
         # Сохранение заметок в файлы формата JSON, CSV, или и обоих форматов.
         if file_ext == 'json':
             with open('notesJ.json', 'w') as f:
-                json.dump(notes, f, cls=DateTimeJSONEncoder)
+                json.dump(unique_notes, f, cls=DateTimeJSONEncoder)
         elif file_ext == 'csv':
-            with open('notesC.csv', 'w', newline='') as f:
+            with open('notesC.csv', 'w', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f, delimiter=';')
                 writer.writerow(['id', 'title', 'text', 'created', 'modified'])
-                for note in notes:
+                for note in unique_notes:
                     writer.writerow([note['id'], note['title'], note['text'], note['created'], note['modified']])
         elif file_ext == 'both':
             with open('notesJ.json', 'w') as f_json:
-                json.dump(notes, f_json, cls=DateTimeJSONEncoder)
-            with open('notesC.csv', 'w', newline='') as f_csv:
+                json.dump(unique_notes, f_json, cls=DateTimeJSONEncoder)
+            with open('notesC.csv', 'w', newline='', encoding='utf-8') as f_csv:
                 writer = csv.writer(f_csv, delimiter=';')
                 writer.writerow(['id', 'title', 'text', 'created', 'modified'])
-                for note in notes:
+                for note in unique_notes:
                     writer.writerow([note['id'], note['title'], note['text'], note['created'], note['modified']])
         else:
             raise ValueError(f"Неподдерживаемый формат файла: {file_ext}")
@@ -191,5 +199,4 @@ class Notes:
         else:
             raise ValueError(f"Неподдерживаемый формат файла: {file_ext}")
 
-        self.notes = notes
         return notes  # Возвращаем список загруженных заметок

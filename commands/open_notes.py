@@ -2,8 +2,6 @@ import os
 import Py_notes.text as tf
 from Py_notes.models.notes import Notes
 
-from Py_notes.view.view import view_notes
-
 
 def open_notes():
     """Функция для открытия выбранной базы заметок в формате CSV или JSON"""
@@ -26,4 +24,5 @@ def open_notes():
     # Добавляем загруженные заметки в список notes
     notes.notes.extend(notes_list)
 
-    view_notes(notes)  # Отображаем все заметки после загрузки из файла
+    # Вместо вызова view_notes(notes), вы можете вывести сообщение об успешном добавлении файла.
+    print(tf.file_added_successfully, {file_name})
