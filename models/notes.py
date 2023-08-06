@@ -6,6 +6,7 @@ import Py_notes.text as tf
 
 from datetime import datetime
 from dotenv import load_dotenv
+
 from Py_notes.models.note_factory import NoteFactory
 from Py_notes.models.note import Note
 
@@ -71,7 +72,7 @@ class Notes:
     # Метод для чтения заметок
     def read(self, filter_date=None):
         if not self.notes:
-            print(tf.empty_list)
+            # print(tf.empty_list)
             return []
         if filter_date:
             # Фильтрация списка заметок по дате создания или изменения.
@@ -146,3 +147,4 @@ class Notes:
             raise ValueError(f"Неподдерживаемый формат файла: {file_ext}")
 
         self.notes = notes
+        return notes # Возвращаем список загруженных заметок

@@ -1,11 +1,11 @@
 import os
 import Py_notes.text as tf  # Импортируем модуль text.py и задаем для него псевдоним tf.
-from models.notes import Notes  # Импортируем класс Notes из модуля models.notes.
+from Py_notes.commands.open_notes import open_notes # Импортируем функцию open_notes из модуля commands.open_files.
+from Py_notes.view.view import view_notes
+from Py_notes.models.notes import Notes  # Импортируем класс Notes из модуля models.notes.
 from commands.create_note_command import CreateNoteCommand  # Импортируем класс CreateNoteCommand из модуля commands.create_note_command.
-from commands.read_notes_command import ReadNotesCommand  # Импортируем класс ReadNotesCommand из модуля commands.read_notes_command.
 from commands.edit_note_command import EditNoteCommand  # Импортируем класс EditNoteCommand из модуля commands.edit_note_command.
 from commands.delete_note_command import DeleteNoteCommand  # Импортируем класс DeleteNoteCommand из модуля commands.delete_note_command.
-from commands.open_files import open_notes  # Импортируем функцию open_notes из модуля commands.open_files.
 from commands.open_list_files import list_files  # Импортируем функцию list_files из модуля commands.open_list_files.
 
 
@@ -54,14 +54,7 @@ def controller():
 
         elif choice == '4':
             # Пункт меню "Показать все заметки".
-            print(tf.filter_notes)
-            query = input("> ")
-            r = ReadNotesCommand(notes, query)  # создаем команду для чтения заметок
-            notes_list = r.execute()  # вызываем метод execute для выполнения команды
-            if not notes_list:
-                print(tf.empty_list)
-            for note in notes_list:
-                print(note)
+            view_notes(notes)
 
         elif choice == '5':
             # Пункт меню "Сохранить заметки в файл".

@@ -20,6 +20,8 @@ edited_note = 'Заметка отредактирована:'
 
 empty_list = 'Список заметок пуст!'
 
+all_list = 'Список всех заметок: '
+
 note_find = 'Не найдено заметки с id: '
 
 exception_in = 'Ошибка создания экземпляра класса Notes!'
@@ -36,7 +38,8 @@ confirm_delete = 'Вы действительно хотите удалить з
 
 invalid_choice = 'Некорректный выбор. Попробуйте еще раз.'
 
-file_not_found = 'Файл не найден: {}'
+file_not_found1 = 'Файл '
+file_not_found2 = 'не найден'
 
 input_id = 'Введите id заметки: '
 
@@ -57,3 +60,5 @@ file_ext_enum = f"csv , json, both"
 unknown_file_format = f"Неизвестный формат файла: {file_ext}"
 
 successfully_saved = 'Заметки успешно сохранены в файл.'
+
+file_name = 'Введите название файла заметок (без расширения): '
